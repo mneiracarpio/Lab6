@@ -34,8 +34,16 @@
                                     <td>${user.lastName}</td>
                                     <td>${user.active ? "Y" : "N"}</td>
                                     <td>
-                                        <a href="">Edit</a>
-                                        <a href="">Delete</a>
+                                        <a href="<c:url value="user">
+                                            <c:param name="action" value="edit"></c:param>
+                                            <c:param name="email" value="${user.email}"></c:param>
+                                        </c:url>">Edit</a>
+                                        <a href="<c:url value="user">
+                                            <c:param name="action" value="delete"></c:param>
+                                            <c:param name="email" value="${user.email}"></c:param>
+                                        </c:url>">Delete</a>
+                                        
+
                                     </td>
                                 </tr>
                             </c:forEach>

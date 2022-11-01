@@ -18,7 +18,8 @@ public class UserDB {
         PreparedStatement ps = null;
         ResultSet rs = null;
         
-        String sql = "SELECT email, active, first_name, last_name, password, role_id, role_name FROM user a, role b WHERE a.role = b.role_id";
+        String sql = "SELECT email, active, first_name, last_name, password, role_id, role_name " + 
+                     "FROM user a, role b WHERE a.role = b.role_id";
         
         try {
             
@@ -128,8 +129,9 @@ public class UserDB {
         ConnectionPool cp = ConnectionPool.getInstance();
         Connection con = cp.getConnection();
         PreparedStatement ps = null;
-        String sql = "DELETE FROM user WHERE email=?";
-        boolean deleted;
+        //String sql = "DELETE FROM user WHERE email=?";
+        String sql = "UPDATE user SET active = 0 WHERE email=?";
+        boolean deleted = false;
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, user.getEmail());
