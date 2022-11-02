@@ -31,7 +31,6 @@ public class UserServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         UserService service = new UserService();
-        UserService service2 = new UserService();
         RoleService rolService = new RoleService();
         
         String action = request.getParameter("action");
@@ -46,7 +45,7 @@ public class UserServlet extends HttpServlet {
             
         } else if (action != null && action.equals("edit")){
             try {
-                User user = service2.get(email);
+                User user = service.get(email);
                 List<Role> roles = rolService.getAll();
 //                Role role = user.
                 request.setAttribute("user", user);
@@ -55,19 +54,23 @@ public class UserServlet extends HttpServlet {
             } catch (Exception ex) {
                 Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
+        } else if (action != null && action.equals("add")){
+            try {
+                List<Role> roles = rolService.getAll();
+                request.setAttribute("roles", roles);
+                request.setAttribute("showDiv", "add");
+            } catch (Exception ex) {
+                Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-        
-        
+                
         try {
             List<User> users = service.getAll();
             request.setAttribute("users", users);
-            this.getServletContext().getRequestDispatcher("/WEB-INF/users.jsp").forward(request, response);
         } catch (Exception ex) {
             Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-       
-        
-        
+        this.getServletContext().getRequestDispatcher("/WEB-INF/users.jsp").forward(request, response);
     }
 
     /**
@@ -89,15 +92,22 @@ public class UserServlet extends HttpServlet {
         String password = request.getParameter("password");
         int roleId = Integer.parseInt(request.getParameter("roleId"));
         
-        
+        String action = request.getParameter("action");
         try {
-            Role role = rolService.get(roleId);
-            boolean updated = service.update(email, true, firstName, lastName, password, role);
+            if (action != null && action.equals("add")) {
+                Role role = rolService.get(roleId);
+                boolean inserted = service.insert(email, true, firstName, lastName, password, role);
+                request.setAttribute("showDiv", "add");
+            } else {
+                Role role = rolService.get(roleId);
+                boolean updated = service.update(email, true, firstName, lastName, password, role);
+                request.setAttribute("showDiv", "edit");
+            }
         } catch (Exception ex) {
             Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         //this.getServletContext().getRequestDispatcher("/WEB-INF/users.jsp").forward(request, response);
-        request.setAttribute("showDiv", "edit");
+        
         response.sendRedirect("user");
     }
 

@@ -16,6 +16,9 @@
             <div class="row">
                 <div class="col">
                     <h1>User Management System</h1>
+                    <button onclick="window.location.href='<c:url value="user">
+                    <c:param name="action" value="add"></c:param></c:url>';">Create New User</button>
+                    
                     <table class="table">
                         <thead>
                             <tr>
@@ -43,7 +46,6 @@
                                             <c:param name="email" value="${user.email}"></c:param>
                                         </c:url>">Delete</a>
                                         
-
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -79,5 +81,31 @@
                 </div>
             </div>
         </div>
+        
+        <c:set var = "showDiv" scope = "session" value = "${showDiv}"/>
+        <div class="container" <c:if test = "${ ( showDiv != 'add') }"> hidden </c:if>> 
+            <div class="row">
+                <div class="col">
+                    <h2>Add User</h2>
+                    <form action="user" method="post">
+                        
+                        <input type="hidden" id="action" name="action" value="add">
+                        <p><label for="email">Email:</label><input id="email" name="email" type="text"></p>
+                        <p><label for="firstName">First Name:</label><input id="firstName" name="firstName" type="text"></p>
+                        <p><label for="lastName">Last Name:</label><input id="lastName" name="lastName" type="text"></p>
+                        <p><label for="password">Password:</label><input id="password" name="password" type="text"></p>
+                        <p><label for="role">Role:</label><select name="roleId" id="roleId">
+                            <c:forEach var="roleList" items="${roles}">
+                                <option value="${roleList.id}">${roleList.name}</option>
+                            </c:forEach>
+                            </select>
+                        </p>
+
+                        <button type="submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+                        
     </body>
 </html>
