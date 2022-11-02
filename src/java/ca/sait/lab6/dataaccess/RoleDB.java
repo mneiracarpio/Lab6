@@ -44,5 +44,29 @@ public class RoleDB {
         return roles;
     }
 
-    
+    public Role get(int id) throws Exception {
+        Role role = null;
+        ConnectionPool cp = ConnectionPool.getInstance();
+        Connection con = cp.getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String sql = "SELECT role_name FROM role WHERE role_id=? LIMIT 1";
+        
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            rs.next();
+            String roleName = rs.getString("role_name");
+
+            role = new Role( id, roleName);
+                
+        } finally {
+            DBUtil.closeResultSet(rs);
+            DBUtil.closePreparedStatement(ps);
+            cp.freeConnection(con);
+        }
+        
+        return role;
+    }
 }

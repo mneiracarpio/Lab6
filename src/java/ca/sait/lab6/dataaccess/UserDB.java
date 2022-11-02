@@ -61,6 +61,10 @@ public class UserDB {
         String sql = "SELECT active, first_name, last_name, password, role_id, role_name FROM user a, role b WHERE a.role = b.role_id AND email=? LIMIT 1";
         
         try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, email);
+            rs = ps.executeQuery();
+            rs.next();
             boolean active = rs.getBoolean("active");
             String firstName = rs.getString("first_name");
             String lastName = rs.getString("last_name");
@@ -69,7 +73,7 @@ public class UserDB {
             String roleName = rs.getString("role_name");
 
             Role role = new Role(roleId, roleName);
-            user = new User(email, active, firstName, lastName, password, role);             
+            user = new User(email, true, firstName, lastName, password, role);             
                 
         } finally {
             DBUtil.closeResultSet(rs);

@@ -50,7 +50,33 @@
 
                         </tbody>
                     </table>
-                 </div>
+                </div>
+            </div>
+        </div>
+        
+        <c:set var = "showDiv" scope = "session" value = "${showDiv}"/>
+        <div class="container" <c:if test = "${ ( showDiv != 'edit') }"> hidden </c:if> > 
+            <div class="row">
+                <div class="col">
+                    <h2>Edit User</h2>
+                    <form action="user" method="post">
+                        <p><label for="email">Email:</label><input id="email" name="email" type="text" value="${user.email}" readonly></p>
+                        <p><label for="firstName">First Name:</label><input id="firstName" name="firstName" type="text" value="${user.firstName}"></p>
+                        <p><label for="lastName">Last Name:</label><input id="lastName" name="lastName" type="text" value="${user.lastName}"></p>
+                        <p><label for="password">Password:</label><input id="password" name="password" type="text" value="${user.password}"></p>
+                        <p><label for="role">Role:</label><select name="roleId" id="roleId">
+                            <c:forEach var="roleList" items="${roles}">
+                                <c:set var = "id1" scope = "session" value = "${roleList.id}"/>
+                                <c:set var = "id2" scope = "session" value = "${user.role.id}"/>
+                                <option value="${roleList.id}"  <c:if test = "${ (id1 == id2) }"> selected </c:if> >${roleList.name}</option>
+
+                            </c:forEach>
+                            </select>
+                        </p>
+
+                        <button type="submit">Submit</button>
+                    </form>
+                </div>
             </div>
         </div>
     </body>
