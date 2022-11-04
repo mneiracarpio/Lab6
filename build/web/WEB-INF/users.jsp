@@ -17,7 +17,7 @@
                 <div class="col">
                     <h1>User Management System</h1>
                     <button onclick="window.location.href='<c:url value="user">
-                    <c:param name="action" value="add"></c:param></c:url>';">Create New User</button>
+                    <c:param name="action" value="add"></c:param></c:url>';"  class="btn btn-outline-primary">Create New User</button>
                     
                     <table class="table">
                         <thead>
@@ -55,18 +55,19 @@
                 </div>
             </div>
         </div>
+        <br>
         
         <c:set var = "showDiv" scope = "session" value = "${showDiv}"/>
         <div class="container" <c:if test = "${ ( showDiv != 'edit') }"> hidden </c:if> > 
             <div class="row">
-                <div class="col">
+                <div class="col-4">
                     <h2>Edit User</h2>
                     <form action="user" method="post">
-                        <p><label for="email">Email:</label><input id="email" name="email" type="text" value="${user.email}" readonly></p>
-                        <p><label for="firstName">First Name:</label><input id="firstName" name="firstName" type="text" value="${user.firstName}"></p>
-                        <p><label for="lastName">Last Name:</label><input id="lastName" name="lastName" type="text" value="${user.lastName}"></p>
-                        <p><label for="password">Password:</label><input id="password" name="password" type="text" value="${user.password}"></p>
-                        <p><label for="role">Role:</label><select name="roleId" id="roleId">
+                        <p><label for="email" class="form-label">Email:</label><input id="email" name="email" type="text" value="${user.email}" readonly class="form-control" ></p>
+                        <p><label for="firstName" class="form-label">First Name:</label><input id="firstName" name="firstName" type="text" value="${user.firstName}"  class="form-control" ></p>
+                        <p><label for="lastName" class="form-label">Last Name:</label><input id="lastName" name="lastName" type="text" value="${user.lastName}"  class="form-control" ></p>
+                        <p><label for="password" class="form-label">Password:</label><input id="password" name="password" type="text" value="${user.password}"  class="form-control" ></p>
+                        <p><label for="role" class="form-label">Role:</label><select name="roleId" id="roleId" class="form-select" >
                             <c:forEach var="roleList" items="${roles}">
                                 <c:set var = "id1" scope = "session" value = "${roleList.id}"/>
                                 <c:set var = "id2" scope = "session" value = "${user.role.id}"/>
@@ -76,7 +77,8 @@
                             </select>
                         </p>
 
-                        <button type="submit">Submit</button>
+                        <button type="submit"  class="btn btn-outline-primary">Save</button>
+                        <br>
                     </form>
                 </div>
             </div>
@@ -85,23 +87,24 @@
         <c:set var = "showDiv" scope = "session" value = "${showDiv}"/>
         <div class="container" <c:if test = "${ ( showDiv != 'add') }"> hidden </c:if>> 
             <div class="row">
-                <div class="col">
+                <div class="col-4">
                     <h2>Add User</h2>
                     <form action="user" method="post">
                         
                         <input type="hidden" id="action" name="action" value="add">
-                        <p><label for="email">Email:</label><input id="email" name="email" type="text"></p>
-                        <p><label for="firstName">First Name:</label><input id="firstName" name="firstName" type="text"></p>
-                        <p><label for="lastName">Last Name:</label><input id="lastName" name="lastName" type="text"></p>
-                        <p><label for="password">Password:</label><input id="password" name="password" type="text"></p>
-                        <p><label for="role">Role:</label><select name="roleId" id="roleId">
+                        <p><label for="email" class="form-label">Email:</label><input id="email" name="email" type="text" class="form-control"></p>
+                        <p><label for="firstName" class="form-label">First Name:</label><input id="firstName" name="firstName" type="text" class="form-control"></p>
+                        <p><label for="lastName" class="form-label">Last Name:</label><input id="lastName" name="lastName" type="text" class="form-control"></p>
+                        <p><label for="password" class="form-label">Password:</label><input id="password" name="password" type="text" class="form-control"></p>
+                        <p><label for="role" class="form-label">Role:</label><select name="roleId" id="roleId" class="form-select" >
                             <c:forEach var="roleList" items="${roles}">
                                 <option value="${roleList.id}">${roleList.name}</option>
                             </c:forEach>
                             </select>
                         </p>
 
-                        <button type="submit">Submit</button>
+                        <button type="submit"  class="btn btn-outline-primary">Save</button>
+                        <br>
                     </form>
                 </div>
             </div>
