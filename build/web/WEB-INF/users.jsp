@@ -62,8 +62,9 @@
             <div class="row">
                 <div class="col-4">
                     <h2>Edit User</h2>
-                    <form action="user?email=${user.email}" method="post">
-                        <p><label for="email" class="form-label">Email:</label><input id="" name="" type="text" value="${user.email}" disabled class="form-control" ></p>
+                    
+                    <form action="user" method="post">
+                        <p><label for="email" class="form-label">Email:</label><input id="email" name="email" type="text" value="${user.email}" readonly class="form-control" ></p>
                         <p><label for="firstName" class="form-label">First Name:</label><input id="firstName" name="firstName" type="text" value="${user.firstName}"  class="form-control" ></p>
                         <p><label for="lastName" class="form-label">Last Name:</label><input id="lastName" name="lastName" type="text" value="${user.lastName}"  class="form-control" ></p>
                         <p><label for="password" class="form-label">Password:</label><input id="password" name="password" type="text" value="${user.password}"  class="form-control" ></p>
